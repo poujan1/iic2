@@ -1,0 +1,14 @@
+{
+  "name": "iic2",
+  "version": "1.0.0",
+  "description": "this is learning purpose",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "pujan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
