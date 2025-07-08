@@ -5,8 +5,13 @@
 // order of routes matters
 
 const express = require("express");
+const path = require("path");
 
+const absolutPath = path.join(__dirname, "public");
 const server = express();
+
+server.use(express.static(absolutPath));
+
 // REST api -
 // use - matches all methods get post delete put
 // / wild card match
@@ -55,20 +60,26 @@ const server = express();
 // app level , route level middlewares
 // inbuilt thirdparty selfmade middlewares
 
-server.get("/hello", (req, res, next) => {
-  // res.send("hello1");
-  next();
-});
-server.get("/hello", (req, res, next) => {
-  // res.send("hello1");
-  next();
-});
-server.get("/home", (req, res) => {
-  res.send("this is home");
-});
+// server.get("/hello", (req, res, next) => {
+//   // res.send("hello1");
+//   next();
+// });
+// server.get("/hello", (req, res, next) => {
+//   // res.send("hello1");
+//   next();
+// });
+// server.get("/home", (req, res) => {
+//   res.send("this is home");
+// });
 
-server.get("/hello", (req, res) => {
-  res.send("hello1");
+// server.get("/hello", (req, res) => {
+//   res.send("hello1");
+// });
+
+server.get("/myName", (req, res) => {
+  res.json({
+    name: "pujan",
+  });
 });
 
 server.listen(8000, (err) => {
