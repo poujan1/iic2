@@ -6,10 +6,11 @@
 
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 
-const absolutPath = path.join(__dirname, "public");
+const absolutPath = path.join(__dirname, "public", "file.txt");
+console.log(absolutPath);
 const server = express();
-
 server.use(express.static(absolutPath));
 
 // REST api -
@@ -76,10 +77,19 @@ server.use(express.static(absolutPath));
 //   res.send("hello1");
 // });
 
-server.get("/myName", (req, res) => {
-  res.json({
-    name: "pujan",
-  });
+server.get("/home", (req, res) => {
+  // query params body form
+  // key value
+  const query = req.query;
+  console.log(query);
+
+  res.send(`query from request is ${query.name}`);
+});
+
+server.get("/profile/:id", (req, res) => {
+  const params = req.params;
+  console.log(params);
+  res.send(`param from request is ${params.id}`);
 });
 
 server.listen(8000, (err) => {
