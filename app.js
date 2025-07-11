@@ -5,13 +5,15 @@
 // order of routes matters
 
 const express = require("express");
-const path = require("path");
-const fs = require("fs");
+const auth = require("./middlewares/auth");
+// const path = require("path");
+// const fs = require("fs");
 
-const absolutPath = path.join(__dirname, "public", "file.txt");
-console.log(absolutPath);
+// const absolutPath = path.join(__dirname, "public", "file.txt");
+// console.log(absolutPath);
 const server = express();
-server.use(express.static(absolutPath));
+
+// server.use(express.static(absolutPath));
 
 // REST api -
 // use - matches all methods get post delete put
@@ -77,19 +79,25 @@ server.use(express.static(absolutPath));
 //   res.send("hello1");
 // });
 
-server.get("/home", (req, res) => {
-  // query params body form
-  // key value
-  const query = req.query;
-  console.log(query);
+// server.get("/home", (req, res) => {
+// query params body form
+// key value
+// const query = req.query;
+// console.log(query);
 
-  res.send(`query from request is ${query.name}`);
-});
+//   res.send(`query from request is ${query.name}`);
+// });
 
-server.get("/profile/:id", (req, res) => {
-  const params = req.params;
-  console.log(params);
-  res.send(`param from request is ${params.id}`);
+// server.get("/profile/:id", (req, res) => {
+//   const params = req.params;
+//   console.log(params);
+//   res.send(`param from request is ${params.id}`);
+// });
+
+// server.use("/admin", auth);
+
+server.use("/admin", auth, (req, res) => {
+  res.send("this is admin route");
 });
 
 server.listen(8000, (err) => {
