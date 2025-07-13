@@ -1,9 +1,18 @@
-const auth = (req, res, next) => {
-  const isSamePerson = "pujan";
-  if (isSamePerson === "pujan") {
+const adminAuth = (req, res, next) => {
+  const name = "pujan";
+  if (name === "pujan") {
     next();
   } else {
     res.send("unauthorized");
   }
 };
-module.exports = auth;
+const userAuth = (req, res, next) => {
+  const name = "pujan";
+  if (name === "pujan") {
+    next();
+  } else {
+    res.send("unauthorized");
+  }
+};
+
+module.exports = { adminAuth, userAuth };

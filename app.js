@@ -5,7 +5,12 @@
 // order of routes matters
 
 const express = require("express");
-const auth = require("./middlewares/auth");
+const connectDb = require("./config/db");
+const adminProfile = require("./controller/admin/profile.controller");
+const createAdmin = require("./controller/admin/create.controller");
+const userProfile = require("./controller/user/profile.controller");
+const { adminAuth, userAuth } = require("./middlewares/auth");
+
 // const path = require("path");
 // const fs = require("fs");
 
@@ -96,10 +101,25 @@ const server = express();
 
 // server.use("/admin", auth);
 
-server.use("/admin", auth, (req, res) => {
-  res.send("this is admin route");
-});
+// server.use("/admin", (req, res, next) => {
+//   const name = "p";
 
+//   if (name === "pujan") {
+//     next();
+//   }
+//   return res.send("unauthorized");
+// });
+server.use("/admin", adminAuth);
+// server.use("/user", userAuth);
+
+server.get("/admin/profile", adminProfile);
+server.get("/admin/create", createAdmin);
+server.get("/user/profile", userAuth, userProfile);
+
+// server.get("/user/login", (req, res) => {
+//   res.send("this is login user route");
+// });
+connectDb();
 server.listen(8000, (err) => {
   console.log("server is running ...");
 });
