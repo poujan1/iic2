@@ -11,7 +11,6 @@ const createUser = async (req, res) => {
       error: "All fields are required",
     });
   }
-
   //   const user = new User();
   const createUser = await User.create({
     firstname,

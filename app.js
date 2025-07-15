@@ -6,11 +6,8 @@
 
 const express = require("express");
 const connectDb = require("./config/db");
-const adminProfile = require("./controller/admin/profile.controller");
-const createAdmin = require("./controller/admin/create.controller");
-const userProfile = require("./controller/user/profile.controller");
-const { createUser } = require("./controller/user/create.user.controller");
-const { adminAuth, userAuth } = require("./middlewares/auth");
+const userRoute = require("./routes/user.routes");
+const adminRoutes = require("./routes/admin.routes");
 
 // const path = require("path");
 // const fs = require("fs");
@@ -19,6 +16,9 @@ const { adminAuth, userAuth } = require("./middlewares/auth");
 // console.log(absolutPath);
 const server = express();
 server.use(express.json());
+
+server.use("/admin", adminRoutes);
+server.use("/user", userRoute);
 
 // server.use(express.static(absolutPath));
 
@@ -111,13 +111,8 @@ server.use(express.json());
 //   }
 //   return res.send("unauthorized");
 // });
-server.use("/admin", adminAuth);
-// server.use("/user", userAuth);
 
-server.get("/admin/profile", adminProfile);
-server.get("/admin/create", createAdmin);
-server.get("/user/profile", userAuth, userProfile);
-server.post("/user/create", createUser);
+// server.use("/user", userAuth);
 
 // server.get("/user/login", (req, res) => {
 //   res.send("this is login user route");
