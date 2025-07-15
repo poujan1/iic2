@@ -1,6 +1,3 @@
-const createAdmin = (req, res) => {
-  console.log("admin auth is checked..");
-  res.send("admin create");
-};
+const createAdmin = (req, res) => {};
 
 module.exports = createAdmin;

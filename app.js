@@ -9,6 +9,7 @@ const connectDb = require("./config/db");
 const adminProfile = require("./controller/admin/profile.controller");
 const createAdmin = require("./controller/admin/create.controller");
 const userProfile = require("./controller/user/profile.controller");
+const { createUser } = require("./controller/user/create.user.controller");
 const { adminAuth, userAuth } = require("./middlewares/auth");
 
 // const path = require("path");
@@ -17,6 +18,7 @@ const { adminAuth, userAuth } = require("./middlewares/auth");
 // const absolutPath = path.join(__dirname, "public", "file.txt");
 // console.log(absolutPath);
 const server = express();
+server.use(express.json());
 
 // server.use(express.static(absolutPath));
 
@@ -115,11 +117,17 @@ server.use("/admin", adminAuth);
 server.get("/admin/profile", adminProfile);
 server.get("/admin/create", createAdmin);
 server.get("/user/profile", userAuth, userProfile);
+server.post("/user/create", createUser);
 
 // server.get("/user/login", (req, res) => {
 //   res.send("this is login user route");
 // });
-connectDb();
-server.listen(8000, (err) => {
-  console.log("server is running ...");
-});
+connectDb()
+  .then(() => {
+    server.listen(8000, (err) => {
+      console.log("server is running ...");
+    });
+  })
+  .catch((err) => {
+    throw new Error(err);
+  });
